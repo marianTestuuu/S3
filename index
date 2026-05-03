@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animacja reveal</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f0f12;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .hero {
+      position: relative;
+      width: min(900px, 90vw);
+      height: auto;
+    }
+
+    .hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+
+      /* initial state */
+      opacity: 0;
+      transform: scale(1.08);
+      filter: blur(20px);
+
+      /* mask reveal effect */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 30%, black 100%);
+      -webkit-mask-size: 200% 100%;
+      mask-size: 200% 100%;
+      -webkit-mask-position: 100% 0;
+      mask-position: 100% 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <img src="devices.png" alt="Devices" id="heroImg" />
+  </div>
+
+  <script>
+    window.addEventListener("load", () => {
+      const img = document.getElementById("heroImg");
+
+      gsap.to(img, {
+        duration: 2,
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        ease: "power3.out"
+      });
+
+      gsap.to(img, {
+        duration: 2.2,
+        maskPosition: "0% 0",
+        webkitMaskPosition: "0% 0",
+        ease: "power2.out"
+      });
+    });
+  </script>
+
+</body>
+</html>
