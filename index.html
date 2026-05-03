@@ -27,7 +27,6 @@
     .hero {
       position: relative;
       width: min(900px, 90vw);
-      height: auto;
     }
 
     .hero img {
@@ -35,18 +34,13 @@
       height: auto;
       display: block;
 
-      /* initial state */
+      /* start state */
       opacity: 0;
-      transform: scale(1.08);
+      transform: scale(0.92);
       filter: blur(20px);
 
-      /* mask reveal effect */
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 100%);
-      mask-image: linear-gradient(to right, transparent 0%, black 30%, black 100%);
-      -webkit-mask-size: 200% 100%;
-      mask-size: 200% 100%;
-      -webkit-mask-position: 100% 0;
-      mask-position: 100% 0;
+      /* reveal via clip-path (no shading artifacts) */
+      clip-path: inset(0 0 0 100%);
     }
   </style>
 </head>
@@ -61,18 +55,12 @@
       const img = document.getElementById("heroImg");
 
       gsap.to(img, {
-        duration: 2,
+        duration: 2.2,
         opacity: 1,
         scale: 1,
         filter: "blur(0px)",
+        clipPath: "inset(0 0 0 0)",
         ease: "power3.out"
-      });
-
-      gsap.to(img, {
-        duration: 2.2,
-        maskPosition: "0% 0",
-        webkitMaskPosition: "0% 0",
-        ease: "power2.out"
       });
     });
   </script>
