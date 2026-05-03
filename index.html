@@ -34,12 +34,12 @@
       height: auto;
       display: block;
 
-      /* start state */
-      opacity: 0;
-      transform: scale(0.92);
-      filter: blur(20px);
+      /* initial visible state but masked */
+      opacity: 1;
+      transform: scale(0.94);
+      filter: blur(18px);
 
-      /* reveal via clip-path (no shading artifacts) */
+      /* start fully hidden from right side */
       clip-path: inset(0 0 0 100%);
     }
   </style>
@@ -54,12 +54,19 @@
     window.addEventListener("load", () => {
       const img = document.getElementById("heroImg");
 
+      // ensure starting state is applied before animation
+      gsap.set(img, {
+        clipPath: "inset(0 0 0 100%)",
+        scale: 0.94,
+        filter: "blur(18px)",
+        opacity: 1
+      });
+
       gsap.to(img, {
-        duration: 2.2,
-        opacity: 1,
+        duration: 2.0,
+        clipPath: "inset(0 0 0 0%)",
         scale: 1,
         filter: "blur(0px)",
-        clipPath: "inset(0 0 0 0)",
         ease: "power3.out"
       });
     });
