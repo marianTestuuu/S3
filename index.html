@@ -32,6 +32,31 @@
       justify-content: center;
     }
 
+    .main-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform-origin: center;
+
+      /* start state */
+      opacity: 0;
+      transform: scale(0.7);
+      filter: blur(22px);
+    }
+
+    .secondary-image {
+      position: absolute;
+      width: 42%;
+      right: 0;
+      bottom: 5%;
+      z-index: 5;
+
+      opacity: 0;
+      transform: translateX(220px) scale(0.9);
+      filter: blur(10px);
+      will-change: transform;
+    }
+
     .hero img {
       width: 100%;
       height: auto;
@@ -48,20 +73,37 @@
 <body>
 
   <div class="hero">
-    <img src="devices.png" alt="Devices" id="heroImg" />
+    <img src="devices.png" alt="Devices" id="heroImg" class="main-image" />
+
+    <!-- drugi obrazek -->
+    <img src="smartfon.jpg" alt="Secondary Device" id="secondaryImg" class="secondary-image" />
   </div>
 
   <script>
     window.addEventListener("load", () => {
       const img = document.getElementById("heroImg");
+      const secondary = document.getElementById("secondaryImg");
 
-      gsap.to(img, {
+      const tl = gsap.timeline();
+
+      // główny obrazek
+      tl.to(img, {
         duration: 2.2,
         opacity: 1,
         scale: 1,
         filter: "blur(0px)",
         ease: "power3.out"
-      });
+      })
+
+      // drugi obrazek wjeżdża pod koniec pierwszej animacji
+      .to(secondary, {
+        duration: 0.9,
+        opacity: 1,
+        x: -120,
+        scale: 1,
+        filter: "blur(0px)",
+        ease: "power4.out"
+      }, "-=0.5");
     });
   </script>
 
